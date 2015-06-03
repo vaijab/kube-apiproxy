@@ -17,6 +17,16 @@ discovered by `kube-apiproxy`.
 
 This means that Kubernetes API is always accessible on `localhost:8081` by default.
 
+## Building
+
+You will need `gb` tool - http://getgb.io/.
+
+```
+git clone https://github.com/vaijab/kube-apiproxy.git
+cd kube-apiproxy
+gb build all
+```
+
 ## Configuration
 
 Configuration is done via command line arguments.
