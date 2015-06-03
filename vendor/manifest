@@ -1,0 +1,12 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/coreos/fleet",
+			"repository": "https://github.com/coreos/fleet",
+			"revision": "f1d86c7bd0ec00162682024336d898d5838cc9a4",
+			"branch": "master",
+			"path": ""
+		}
+	]
+}

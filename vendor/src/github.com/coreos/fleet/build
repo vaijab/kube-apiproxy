@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+ORG_PATH="github.com/coreos"
+REPO_PATH="${ORG_PATH}/fleet"
+
+if [ ! -h gopath/src/${REPO_PATH} ]; then
+	mkdir -p gopath/src/${ORG_PATH}
+	ln -s ../../../.. gopath/src/${REPO_PATH} || exit 255
+fi
+
+export GOBIN=${PWD}/bin
+export GOPATH=${PWD}/gopath
+
+eval $(go env)
+
+if [ ${GOOS} = "linux" ]; then
+	echo "Building fleetd..."
+	CGO_ENABLED=0 go build -o bin/fleetd -a -installsuffix netgo -ldflags '-s' ${REPO_PATH}/fleetd
+else
+	echo "Not on Linux - skipping fleetd build"
+fi
+
+echo "Building fleetctl..."
+CGO_ENABLED=0 go build -o bin/fleetctl -a -installsuffix netgo -ldflags '-s' ${REPO_PATH}/fleetctl
