@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"os"
 	"time"
 )
 
@@ -13,6 +14,7 @@ var (
 	unitName      string
 	proxyListen   string
 	apiPort       string
+	printVersion  bool
 )
 
 func init() {
@@ -20,10 +22,16 @@ func init() {
 	flag.StringVar(&unitName, "unit-name", "kube-apiserver.service", "fleet unit name for kubernetes api server")
 	flag.StringVar(&proxyListen, "proxy-listen", "localhost:8081", "proxy listen ip:port")
 	flag.StringVar(&apiPort, "api-port", "8080", "kubernetes api port")
+	flag.BoolVar(&printVersion, "version", false, "print version and exit")
 }
 
 func main() {
 	flag.Parse()
+	if printVersion {
+		fmt.Printf("kube-apiproxy %s\n", Version)
+		os.Exit(0)
+	}
+
 	ipChan := make(chan string)
 	fleetClient, err := getClient(fleetEndpoint)
 	if err != nil {
