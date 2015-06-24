@@ -80,7 +80,7 @@ func main() {
 			time.Sleep(time.Second * 1)
 			continue
 		}
-		conn, err := listen.Accept()
+		conn, err := listen.AcceptTCP()
 		if err != nil {
 			log.Fatalln(err)
 		}
